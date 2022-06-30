@@ -17,16 +17,16 @@ const logger = require('../logging/logger');
 // module.exports = client;
 
 
-let client;
+// let client;
 
-async function connect() {
-    if (!client) {
-        client = await MongoClient.connect(url,{ useUnifiedTopology: true })
-        .catch(err => { console.log(err); });
-    }
-    return client;
-}
+// async function connect() {
+//     if (!client) {
+//         client = await MongoClient.connect(url,{ useUnifiedTopology: true })
+//         .catch(err => { console.log(err); });
+//     }
+//     return client;
+// }
 
-const getConectedClient = () => client;  
+// const getConectedClient = () => client;  
 
-module.exports = { connect, getConectedClient };
+// module.exports = { connect, getConectedClient };
