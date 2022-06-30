@@ -50,4 +50,24 @@ const getEmployees = async (req, res) => {
     }
 };
 
-module.exports = { createEmployee, getEmployees }
+const deleteEmployee = async (req, res) => {
+    try {
+        const client = await MongoClient.connect(url, { useUnifiedTopology: true });
+        let db = client.db("employee-employer");
+        const id = parseInt(req.params.id);
+        let employees = await db.collection('employees').findOneAndDelete({'employeeId': id}, function(err, result) {
+            if(err) {
+                logger.error('Unable to delete the employee at the moment');
+            } else {
+                logger.info('Employee deleted succesfully')
+                res.status(200).json({status: result});
+            }
+        });
+
+    }catch(err) {
+        logger.error('Error Deleting employee from DB');
+        res.status(422).json({status : `${err}`});
+    }
+}
+
+module.exports = { createEmployee, getEmployees, deleteEmployee }
